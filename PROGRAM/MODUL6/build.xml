@@ -1,0 +1,33 @@
+<project name="checkstyle" default="checkstyle" basedir=".">
+<property name="classes.dir" value="classes" />
+<property name="src.dir" value="src" />
+<path id="cpath">
+<pathelement location="${classes.dir}"/>
+</path>
+<path id="checkstylecp">
+<pathelement location="checkstyle/lib/*.jar" />
+</path>
+<target name="clean">
+<echo message="Cleaning and creating new directory" />
+<delete dir="${classes.dir}" />
+<mkdir dir="${classes.dir}" />
+</target>
+<target name="compile" depends="clean">
+<echo message="compiling all vehicles and tests classes" />
+<javac debug="true"
+source="1.5" classpathref="cpath"
+srcdir="${src.dir}" destdir="${classes.dir}"/>
+</target>
+<taskdef resource="checkstyletask.properties">
+<classpath location="checkstyle/lib/checkstyle-all-5.0.jar"/>
+</taskdef>
+<target name="checkstyle">
+<checkstyle config="checkstyle/checks/sun_checks.xml"
+classpathref="checkstylecp">
+<fileset dir="${src.dir}" includes="**/*.java"/>
+</checkstyle>
+</target>
+<target name="run" depends="compile">
+<java classname="vehicles.BicycleMain" classpathref="cpath"/>
+</target>
+</project>

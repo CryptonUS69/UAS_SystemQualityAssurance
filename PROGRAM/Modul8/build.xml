@@ -1,0 +1,42 @@
+<project name="junit4" default="test" basedir=".">
+	<property name="output.dir" value="test-results" />
+	<property name="classes.dir" value="classes" />
+	<property name="src.dir" value="src" />
+	<property name="lib.dir" value="lib" />
+	<property name="report.dir" value="reports" />
+	<path id="cpath">
+		<pathelement location="${lib.dir}/junit-4.7.jar" />
+		<pathelement location="${classes.dir}" />
+	</path>
+	<target name="clean">
+		<echo message="Cleaning and creating new directory" />
+		<delete dir="${classes.dir}" />
+		<delete dir="${output.dir}" />
+		<delete dir="${report.dir}" />
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${report.dir}" />
+	</target>
+	<presetdef name="javac">
+    		<javac includeantruntime="false" />
+  	</presetdef>
+	<target name="compile" depends="clean">
+		<echo message="compiling all vehicles and tests classes" />
+		<javac debug="true" classpathref="cpath" srcdir="${src.dir}" destdir="${classes.dir}" />
+	</target>
+	<target name="test" depends="compile">
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath>
+				<pathelement location="${classes.dir}" />
+				<pathelement path="${lib.dir}/ant-junit-1.9.7.jar" />
+				<pathelement path="${lib.dir}/junit-4.7.jar" />
+				<pathelement path="${lib.dir}/junit-dep-4.7.jar" />
+			</classpath>
+			<formatter type="plain" />
+			<batchtest fork="yes" todir="${report.dir}">
+				<fileset dir="${src.dir}">
+					<include name="**/*Test*.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+</project>

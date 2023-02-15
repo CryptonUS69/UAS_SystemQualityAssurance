@@ -1,0 +1,9 @@
+Testsuite: tests.BicycleTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.033 sec
+------------- Standard Output ---------------
+Test applyBrake method ...
+Test speedUp method ...
+------------- ---------------- ---------------
+
+Testcase: test_applyBrake took 0.007 sec
+Testcase: test_speedUp took 0 sec
